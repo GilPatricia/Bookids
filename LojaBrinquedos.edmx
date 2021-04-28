@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="LojaBrinquedos.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
+        <EntityContainer Name="LojaBrinquedosTargetContainer" >
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="LojaBrinquedos" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="LojaBrinquedosContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Escola" EntityType="LojaBrinquedos.Escola" />
+          <EntitySet Name="Participacao" EntityType="LojaBrinquedos.Participacao" />
+          <EntitySet Name="Inscricao" EntityType="LojaBrinquedos.Inscricao" />
+          <EntitySet Name="Pessoa" EntityType="LojaBrinquedos.Pessoa" />
+          <AssociationSet Name="FilhoEscola" Association="LojaBrinquedos.FilhoEscola">
+            <End Role="Filho" EntitySet="Pessoa" />
+            <End Role="Escola" EntitySet="Escola" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Filho" BaseType="LojaBrinquedos.Pessoa">
+          <Property Name="IdFilho" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sexo" Type="String" Nullable="false" />
+          <Property Name="DataNascimento" Type="String" Nullable="false" />
+          <Property Name="idEscola" Type="String" Nullable="false" />
+          <Property Name="idProgenitor" Type="String" Nullable="false" />
+          <NavigationProperty Name="Escola" Relationship="LojaBrinquedos.FilhoEscola" FromRole="Filho" ToRole="Escola" />
+        </EntityType>
+        <EntityType Name="Escola">
+          <Key>
+            <PropertyRef Name="IdEscola" />
+          </Key>
+          <Property Name="IdEscola" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" Nullable="false" />
+          <Property Name="Morada" Type="String" Nullable="false" />
+          <Property Name="Telefone" Type="String" Nullable="false" />
+          <Property Name="Mail" Type="String" Nullable="false" />
+          <Property Name="CodPostal" Type="String" Nullable="false" />
+          <Property Name="Localidade" Type="String" Nullable="false" />
+          <NavigationProperty Name="Filho" Relationship="LojaBrinquedos.FilhoEscola" FromRole="Escola" ToRole="Filho" />
+        </EntityType>
+        <EntityType Name="Participacao">
+          <Key>
+            <PropertyRef Name="IdParticipacao" />
+          </Key>
+          <Property Name="IdParticipacao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="Inscricao">
+          <Key>
+            <PropertyRef Name="IdInscricao" />
+          </Key>
+          <Property Name="IdInscricao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Confirmada" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pessoa">
+          <Key>
+            <PropertyRef Name="IdPessoa" />
+          </Key>
+          <Property Name="IdPessoa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" Nullable="false" />
+          <Property Name="Morada" Type="String" Nullable="false" />
+          <Property Name="Localidade" Type="String" Nullable="false" />
+          <Property Name="CodPostal" Type="String" Nullable="false" />
+          <Property Name="Telefone" Type="String" Nullable="false" />
+          <Property Name="Telemovel" Type="String" Nullable="false" />
+          <Property Name="Mail" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="FilhoEscola">
+          <End Type="LojaBrinquedos.Filho" Role="Filho" Multiplicity="*" />
+          <End Type="LojaBrinquedos.Escola" Role="Escola" Multiplicity="1" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="LojaBrinquedos" />
+        <Alias Key="Target" Value="LojaBrinquedos.Store" />
+        <EntityContainerMapping CdmEntityContainer="LojaBrinquedosContainer" StorageEntityContainer="LojaBrinquedosTargetContainer">
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
