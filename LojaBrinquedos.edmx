@@ -160,12 +160,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Animador">
-          <Key>
-            <PropertyRef Name="IdAnimador" />
-          </Key>
-          <Property Name="IdAnimador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-        <EntityType Name="Eventos">
+		  <EntityType Name="Animador">
+			  <Key>
+				  <PropertyRef Name="IdAnimador" />
+			  </Key>
+			  <Property Name="IdAnimador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+		  </EntityType>
+			<EntityType Name="Eventos">
           <Key>
             <PropertyRef Name="IdNrEvento" />
           </Key>
