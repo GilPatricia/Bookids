@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'E:\IPLeiria\1ano\2º semestre\Desenvolvimento de APP's\projeto\Bookids\Bookids\LojaBrinquedos.edmx'. 
+﻿// T4 code generation is enabled for model 'E:\IPLeiria\1ano\2º semestre\Desenvolvimento de APP's\projeto\repositorioGit\Bookids\LojaBrinquedos.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

@@ -21,6 +21,24 @@
             <End Role="Filho" EntitySet="Pessoa" />
             <End Role="Escola" EntitySet="Escola" />
           </AssociationSet>
+          <AssociationSet Name="ClienteFilho" Association="LojaBrinquedos.ClienteFilho">
+            <End Role="Cliente" EntitySet="Pessoa" />
+            <End Role="Filho" EntitySet="Pessoa" />
+          </AssociationSet>
+          <EntitySet Name="Compra" EntityType="LojaBrinquedos.Compra" />
+          <AssociationSet Name="EscolaParticipacao" Association="LojaBrinquedos.EscolaParticipacao">
+            <End Role="Escola" EntitySet="Escola" />
+            <End Role="Participacao" EntitySet="Participacao" />
+          </AssociationSet>
+          <AssociationSet Name="ClienteCompra" Association="LojaBrinquedos.ClienteCompra">
+            <End Role="Cliente" EntitySet="Pessoa" />
+            <End Role="Compra" EntitySet="Compra" />
+          </AssociationSet>
+          <AssociationSet Name="FilhoInscricao" Association="LojaBrinquedos.FilhoInscricao">
+            <End Role="Filho" EntitySet="Pessoa" />
+            <End Role="Inscricao" EntitySet="Inscricao" />
+          </AssociationSet>
+          <EntitySet Name="Animador" EntityType="LojaBrinquedos.Animador" />
         </EntityContainer>
         <EntityType Name="Filho" BaseType="LojaBrinquedos.Pessoa">
           <Property Name="IdFilho" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
@@ -29,6 +47,8 @@
           <Property Name="idEscola" Type="String" Nullable="false" />
           <Property Name="idProgenitor" Type="String" Nullable="false" />
           <NavigationProperty Name="Escola" Relationship="LojaBrinquedos.FilhoEscola" FromRole="Filho" ToRole="Escola" />
+          <NavigationProperty Name="Cliente" Relationship="LojaBrinquedos.ClienteFilho" FromRole="Filho" ToRole="Cliente" />
+          <NavigationProperty Name="Inscricao" Relationship="LojaBrinquedos.FilhoInscricao" FromRole="Filho" ToRole="Inscricao" />
         </EntityType>
         <EntityType Name="Escola">
           <Key>
@@ -42,12 +62,15 @@
           <Property Name="CodPostal" Type="String" Nullable="false" />
           <Property Name="Localidade" Type="String" Nullable="false" />
           <NavigationProperty Name="Filho" Relationship="LojaBrinquedos.FilhoEscola" FromRole="Escola" ToRole="Filho" />
+          <NavigationProperty Name="Participacao" Relationship="LojaBrinquedos.EscolaParticipacao" FromRole="Escola" ToRole="Participacao" />
         </EntityType>
         <EntityType Name="Participacao">
           <Key>
             <PropertyRef Name="IdParticipacao" />
           </Key>
           <Property Name="IdParticipacao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Escola" Relationship="LojaBrinquedos.EscolaParticipacao" FromRole="Participacao" ToRole="Escola" />
+          <Property Name="EscolaIdEscola" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Inscricao">
           <Key>
@@ -55,6 +78,8 @@
           </Key>
           <Property Name="IdInscricao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Confirmada" Type="String" Nullable="false" />
+          <NavigationProperty Name="Filho" Relationship="LojaBrinquedos.FilhoInscricao" FromRole="Inscricao" ToRole="Filho" />
+          <Property Name="FilhoIdPessoa" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Pessoa">
           <Key>
@@ -73,6 +98,71 @@
           <End Type="LojaBrinquedos.Filho" Role="Filho" Multiplicity="*" />
           <End Type="LojaBrinquedos.Escola" Role="Escola" Multiplicity="1" />
         </Association>
+        <EntityType Name="Cliente" BaseType="LojaBrinquedos.Pessoa">
+          <Property Name="IdCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ValorOferta" Type="String" Nullable="false" />
+          <Property Name="NrCartao" Type="String" Nullable="false" />
+          <NavigationProperty Name="Filho" Relationship="LojaBrinquedos.ClienteFilho" FromRole="Cliente" ToRole="Filho" />
+          <NavigationProperty Name="Compra" Relationship="LojaBrinquedos.ClienteCompra" FromRole="Cliente" ToRole="Compra" />
+        </EntityType>
+        <Association Name="ClienteFilho">
+          <End Type="LojaBrinquedos.Cliente" Role="Cliente" Multiplicity="1" />
+          <End Type="LojaBrinquedos.Filho" Role="Filho" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Compra">
+          <Key>
+            <PropertyRef Name="IdNrCompra" />
+          </Key>
+          <Property Name="IdNrCompra" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Data" Type="String" Nullable="false" />
+          <Property Name="UtilizouCartao" Type="String" Nullable="false" />
+          <Property Name="idCliente" Type="String" Nullable="false" />
+          <Property Name="ProdutosCodProdutos" Type="String" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="LojaBrinquedos.ClienteCompra" FromRole="Compra" ToRole="Cliente" />
+          <Property Name="ClienteIdPessoa" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="EscolaParticipacao">
+          <End Type="LojaBrinquedos.Escola" Role="Escola" Multiplicity="1" />
+          <End Type="LojaBrinquedos.Participacao" Role="Participacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Escola">
+              <PropertyRef Name="IdEscola" />
+            </Principal>
+            <Dependent Role="Participacao">
+              <PropertyRef Name="EscolaIdEscola" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ClienteCompra">
+          <End Type="LojaBrinquedos.Cliente" Role="Cliente" Multiplicity="1" />
+          <End Type="LojaBrinquedos.Compra" Role="Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="IdPessoa" />
+            </Principal>
+            <Dependent Role="Compra">
+              <PropertyRef Name="ClienteIdPessoa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FilhoInscricao">
+          <End Type="LojaBrinquedos.Filho" Role="Filho" Multiplicity="1" />
+          <End Type="LojaBrinquedos.Inscricao" Role="Inscricao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Filho">
+              <PropertyRef Name="IdPessoa" />
+            </Principal>
+            <Dependent Role="Inscricao">
+              <PropertyRef Name="FilhoIdPessoa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Animador">
+          <Key>
+            <PropertyRef Name="IdAnimador" />
+          </Key>
+          <Property Name="IdAnimador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
