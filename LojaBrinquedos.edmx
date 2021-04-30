@@ -21,6 +21,9 @@
             <End Role="Filho" EntitySet="Pessoa" />
             <End Role="Escola" EntitySet="Escola" />
           </AssociationSet>
+          <EntitySet Name="Evento" EntityType="LojaBrinquedos.Eventos" />
+          <EntitySet Name="Produto" EntityType="LojaBrinquedos.Produto" />
+          <EntitySet Name="TipoProduto" EntityType="LojaBrinquedos.TipoProduto" />
         </EntityContainer>
         <EntityType Name="Filho" BaseType="LojaBrinquedos.Pessoa">
           <Property Name="IdFilho" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
@@ -73,6 +76,36 @@
           <End Type="LojaBrinquedos.Filho" Role="Filho" Multiplicity="*" />
           <End Type="LojaBrinquedos.Escola" Role="Escola" Multiplicity="1" />
         </Association>
+        <EntityType Name="Eventos">
+          <Key>
+            <PropertyRef Name="IdNrEvento" />
+          </Key>
+          <Property Name="IdNrEvento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descricao" Type="String" Nullable="false" />
+          <Property Name="Local" Type="String" Nullable="false" />
+          <Property Name="DataHora" Type="DateTime" Nullable="false" />
+          <Property Name="LimiteParticipantes" Type="Int16" Nullable="false" />
+          <Property Name="IdadeInferior" Type="Int16" Nullable="false" />
+          <Property Name="IdadeSuperior" Type="String" Nullable="false" />
+          <Property Name="TipoEvento" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Produto">
+          <Key>
+            <PropertyRef Name="IdCodProduto" />
+          </Key>
+          <Property Name="IdCodProduto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Designacao" Type="String" Nullable="false" />
+          <Property Name="Preco" Type="String" Nullable="false" />
+          <Property Name="CodTipoProduto" Type="String" Nullable="false" />
+          <Property Name="StockExistente" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipoProduto">
+          <Key>
+            <PropertyRef Name="IdCodTipoProduto" />
+          </Key>
+          <Property Name="IdCodTipoProduto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tipo" Type="String" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
