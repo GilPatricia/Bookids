@@ -20,6 +20,9 @@
         <AssociationConnector Association="LojaBrinquedos.ClienteCompra" />
         <AssociationConnector Association="LojaBrinquedos.FilhoInscricao" />
         <EntityTypeShape EntityType="LojaBrinquedos.Animador" Width="1.5" PointX="8.125" PointY="5.75" />
+        <EntityTypeShape EntityType="LojaBrinquedos.Eventos" Width="2" PointX="8" PointY="1.375" />
+        <EntityTypeShape EntityType="LojaBrinquedos.Produto" Width="1.5" PointX="8.5" PointY="4.375" />
+        <EntityTypeShape EntityType="LojaBrinquedos.TipoProduto" Width="1.5" PointX="10.5" PointY="3.625" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
